@@ -82,14 +82,14 @@ def predictWithBert(token):
     return prediction.item()
 
 def outputResult(p):
-    print("This is p",p)
+    # print("This is p",p)
     result = "phishing" if p == 1 else "legit"
-    st.write(f"The email is predicted to be {result}")
+    # st.write(f"The email is predicted to be {result}")
     return result
 
 
 def swap_user_text(text):
-    augmenter = EasyDataAugmenter()
+    augmenter = EasyDataAugmenter(pct_words_to_swap=0.2, transformations_per_example=5)
     augmented = augmenter.augment(text)
     return augmented[0] if isinstance(augmented, list) else augmented
 
@@ -141,10 +141,15 @@ def main():
 
             predictOriginal = predictWithBert(tokenized_testinput)
             predictAttack= predictWithBert(tokenized_attackinput)
-            st.write("Prediction (before):")
-            st.write( outputResult(predictOriginal))
-            st.write("Prediction (before):")
-            st.write(outputResult(predictAttack))
+
+            resAttack = outputResult(predictAttack)
+            resPred = outputResult(predictOriginal)
+
+            if resAttack == resPred:
+                 st.write("The model held up — prediction remained the same after the simulated attack! :smile:")
+            else:
+                 st.write("The input fooled the model — its decision flipped after the text was altered. :skull:")
+
          
 
 
