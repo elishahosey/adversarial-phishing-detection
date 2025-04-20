@@ -78,18 +78,16 @@ def predictWithBert(token):
                 logits = outputs.logits
                 prediction = torch.argmax(logits, dim=-1)
                 
-    #print(f"Predicted class: {prediction.item()}")
     return prediction.item()
 
 def outputResult(p):
-    # print("This is p",p)
+
     result = "phishing" if p == 1 else "legit"
-    # st.write(f"The email is predicted to be {result}")
     return result
 
 
-def swap_user_text(text):
-    augmenter = EasyDataAugmenter(pct_words_to_swap=0.2, transformations_per_example=5)
+def swap_user_text(text,val):
+    augmenter = EasyDataAugmenter(pct_words_to_swap=val, transformations_per_example=5)
     augmented = augmenter.augment(text)
     return augmented[0] if isinstance(augmented, list) else augmented
 
@@ -105,9 +103,8 @@ def main():
     tokenized_input = tokenizerLoaded(combined_input, padding="max_length", return_tensors="pt", truncation=True)
  
 
-    # Predict button
     predict = st.button("PREDICT")
-
+    values = st.slider("How intense do you want the swap to be?", 0.0, 1.0)
     testRobust=st.button("Test Robustness (Swap Attack)")
 
 
@@ -128,10 +125,10 @@ def main():
     if testRobust:
          combined_testinput = input_subject +" "+ input_email
          if combined_testinput.strip():
-            attacked_text = swap_user_text(combined_testinput)
+            attacked_text = swap_user_text(combined_testinput,values)
 
             st.subheader("Original Input")
-            st.write(combined_testinput)
+            st.write("ALTERED TEXT:", combined_testinput)
 
             st.subheader("Adversarial Input (Swap Attack)")
             st.write(attacked_text)
@@ -150,7 +147,6 @@ def main():
             else:
                  st.write("The input fooled the model — its decision flipped after the text was altered. :skull:")
 
-         
 
 
 if __name__ == "__main__":
