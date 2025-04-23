@@ -2,6 +2,8 @@
 
 This interactive web application allows users to paste in emails and receive real-time predictions on whether the email is phishing or legitimate, powered by a fine-tuned BERT model. The app also features an educational adversarial attack simulator to demonstrate how AI can be manipulated with subtle word swaps.
 
+![UI Streamlit](img/detection.png)
+
 ---
 ## 📦 Dataset Used
 
