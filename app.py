@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import json
 import torch
 from dotenv import load_dotenv
 from huggingface_hub import login
@@ -16,13 +17,14 @@ from textattack.augmentation import EasyDataAugmenter
 from transformers import AutoTokenizer,AutoModel,AutoModelForSequenceClassification
 #from model import modelBertLoaded, tokenizerLoaded
 
-#Logging in to HuggingFace Hub
-load_dotenv()
-HF_TOKEN = os.getenv("HF_TOKEN")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("GOOGLE_AUTH_CRED")
 
-login(HF_TOKEN)
+google_creds = st.secrets["google"]
+hfToken = st.secrets["api_creds"].HF_TOKEN
+google_api = st.secrets["api_creds"].GOOGLE_API_KEY
+with open("credentials.json", "w") as f:
+    json.dump(dict(google_creds), f)
+
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = st.secrets["api_creds"].GOOGLE_AUTH_CRED
 
 
 filename="text_combined_Df_20250403_2635.csv"
@@ -128,10 +130,10 @@ def main():
             attacked_text = swap_user_text(combined_testinput,values)
 
             st.subheader("Original Input")
-            st.write("ALTERED TEXT:", combined_testinput)
+            st.write(combined_testinput)
 
             st.subheader("Adversarial Input (Swap Attack)")
-            st.write(attacked_text)
+            st.write("ALTERED TEXT:",attacked_text)
 
             tokenized_testinput = tokenizerLoaded(combined_testinput, padding="max_length", return_tensors="pt", truncation=True)
             tokenized_attackinput = tokenizerLoaded(attacked_text, padding="max_length", return_tensors="pt", truncation=True)
