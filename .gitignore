@@ -3,3 +3,5 @@ credentials.json
 .csv
 .streamlit/secrets.toml
 *.yml
+__pycache__/
+data/
