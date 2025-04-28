@@ -328,19 +328,19 @@ with torch.no_grad():  # Disable gradient computation for inference
         all_predictions.extend(predictions.cpu().numpy())  # Move to CPU for printing
 
 
-swapAttack_df['predictions'] = all_predictions
-createFile(swapAttack_df,"swapAttack_predictions")
+# swapAttack_df['predictions'] = all_predictions
+# createFile(swapAttack_df,"swapAttack_predictions")
 
-Test with original data before attack
-test_combined_df['predictions'] = all_predictions
-createFile(test_combined_df,"combined_predictions")
+# #Test with original data before attack
+# test_combined_df['predictions'] = all_predictions
+# createFile(test_combined_df,"combined_predictions")
 
 
-'''
-Check Accuracy
-'''
-y_true = combined_df['label']
-y_pred = test_combined_df['predictions']
+# '''
+# Check Accuracy
+# '''
+# y_true = combined_df['label']
+# y_pred = test_combined_df['predictions']
 
 # Calculate accuracy
 accuracy = accuracy_score(y_true, y_pred)
