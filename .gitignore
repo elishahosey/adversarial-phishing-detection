@@ -2,3 +2,4 @@
 credentials.json
 .csv
 .streamlit/secrets.toml
+*.yml
