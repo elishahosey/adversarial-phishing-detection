@@ -29,8 +29,8 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credentials.json"
 
 filename="text_combined_Df_20250403_2635.csv"
 csv_path = hf_hub_download(repo_id='hosephoo/capstone3860v2', filename=filename,token=hfToken)
-modelBertLoaded = AutoModelForSequenceClassification.from_pretrained('hosephoo/capstone3860v2')
-tokenizerLoaded = AutoTokenizer.from_pretrained('hosephoo/capstone3860v2')
+modelBertLoaded = AutoModelForSequenceClassification.from_pretrained('hosephoo/capstone3860v2',token=hfToken)
+tokenizerLoaded = AutoTokenizer.from_pretrained('hosephoo/capstone3860v2',token=hfToken)
 
 
 # os.makedirs("data", exist_ok=True)
