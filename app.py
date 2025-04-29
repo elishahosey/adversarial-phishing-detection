@@ -18,9 +18,9 @@ from transformers import AutoTokenizer,AutoModel,AutoModelForSequenceClassificat
 #from model import modelBertLoaded, tokenizerLoaded
 
 
-google_creds = st.secrets["google"]
-hfToken = st.secrets["api_creds"].HF_TOKEN
-google_api = st.secrets["api_creds"].GOOGLE_API_KEY
+google_creds = st.secrets.google
+hfToken = st.secrets.api_creds.HF_TOKEN
+google_api = st.secrets.api_creds.GOOGLE_API_KEY
 with open("credentials.json", "w") as f:
     json.dump(dict(google_creds), f)
 
