@@ -24,7 +24,7 @@ google_api = st.secrets.api_creds.GOOGLE_API_KEY
 with open("credentials.json", "w") as f:
     json.dump(dict(google_creds), f)
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = st.secrets["api_creds"].GOOGLE_AUTH_CRED
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credentials.json"
 
 
 filename="text_combined_Df_20250403_2635.csv"
