@@ -59,7 +59,7 @@ Respond with a short, direct justification confirming why this email appears tru
         **Subject:** {subject}
         **Body:** {email}
         """
-    genai.configure(api_key=os.environ[google_api]) 
+    genai.configure(api_key=google_api) 
     modelReason = genai.GenerativeModel('gemini-1.5-pro')  
     start = time.time()
     analyzedRes = modelReason.generate_content(analysis)
